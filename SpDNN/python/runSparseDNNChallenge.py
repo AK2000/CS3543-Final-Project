@@ -1,4 +1,5 @@
 import time
+import os
 import argparse
 import numpy as np
 import pandas as pd
@@ -14,13 +15,13 @@ import algorithms.GO
 parser = argparse.ArgumentParser()
 parser.add_argument('--neurons', default=1024, choices=[1024, 4096, 16384, 65536], help="Number of neurons for training [options: 1024, 4096, 16384, 65536], defaults to 1024.", type=int)
 parser.add_argument('--layers', default=120, help="Number of layers", type=int)
-parser.add_argument('--reorder', default=None, choices=[None, "GO"])
+parser.add_argument('--reorder', default=None)
 parser.add_argument('-o', '--output', help="File to write timing results to.")
 
 args = parser.parse_args()
 
 # Set locations of files.
-basePath = '/mnt/d/UChicago/src/classes/graphs/final_project/dataset/'
+basePath = '/local/classes/graphs/CS3543-Final-Project/dataset/'
 
 inputFile = basePath + 'MNIST/sparse-images-';
 categoryFile = basePath + 'DNN/neuron';
@@ -91,6 +92,9 @@ for j in range(len(maxLayers)):
     if args.reorder == "GO":
         graph = algorithms.utils.edges_to_operations_graph(edge_df, Nneuron[i])
         node_order = algorithms.GO.reorder_nodes(graph, Nneuron[i])[::-1]
+    elif args.reorder is not None and os.path.exists(args.reorder):
+        edge_df = pd.read_csv(args.reorder, sep=" ", header=None)
+        node_order = edge_df[::-1].itertuples(index=False)
     else:
         node_order = edge_df[::-1].itertuples(index=False)
     reorder_time = time.perf_counter() - tic
@@ -104,15 +108,15 @@ for j in range(len(maxLayers)):
         activation = row[1] not in neurons
         if activation:
             neurons.add(row[1])
-        edges.append(spdnn.Edge(row[0], row[1], row[2], activation))
+        edges.append(spdnn.Edge(int(row[0]), int(row[1]), row[2], activation))
     
     edges = edges[::-1]
     createEdgesTime = time.perf_counter() - tic
     
     print('[INFO] Created edge list. Time: %f' % createEdgesTime)
 
-    with open("edge_order.txt", "w") as fp:
-        fp.writelines(["%f %f %f\n" % (l.source, l.dest, l.weight) for l in edges])
+    #with open("edge_order_go.txt", "w") as fp:
+    #    fp.writelines(["%f %f %f\n" % (l.source, l.dest, l.weight) for l in edges])
 
     # Perform and time challenge
     tic = time.perf_counter()
