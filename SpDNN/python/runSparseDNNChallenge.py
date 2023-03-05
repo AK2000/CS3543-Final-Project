@@ -8,9 +8,14 @@ from readTriples import readTriples
 import sys
 sys.path.insert(0,'../src/')
 import spdnn
+import algorithms.utils
+import algorithms.GO
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--neurons', default=1024, choices=[1024, 4096, 16384, 65536], help="Number of neurons for training [options: 1024, 4096, 16384, 65536], defaults to 1024.", type=int)
+parser.add_argument('--layers', default=120, help="Number of layers", type=int)
+parser.add_argument('--reorder', default=None, choices=[None, "GO"])
+parser.add_argument('-o', '--output', help="File to write timing results to.")
 
 args = parser.parse_args()
 
@@ -30,7 +35,7 @@ READMAT = True    # Redd input and layers from .mat files.
 
 # Select number of layers to run.
 #maxLayers = 120 * [1, 4, 16];
-maxLayers = [120];
+maxLayers = [args.layers]
 
 # Set DNN bias.
 neuralNetBias = [-0.3,-0.35,-0.4,-0.45];
@@ -50,14 +55,6 @@ for i in range (len(Nneuron)):
     
 # Read layers.
 for j in range(len(maxLayers)):
-    # Read in true categories.
-    if not SAVECAT:
-        filename = f"{categoryFile}{Nneuron[i]}-l{maxLayers[j]}-categories.tsv"
-        # print(filename)
-        trueCategories = np.genfromtxt(filename)
-        # FIXING THE INDEXING: True Categories are +1
-        trueCategories = trueCategories - 1
-        
     DNNedges = 0
     layers = []
     bias = []
@@ -89,45 +86,42 @@ for j in range(len(maxLayers)):
     print('[INFO] Read time (sec): %f, read rate (edges/sec): %f' %(readLayerTime, readLayerRate));
     print('[INFO] Max Source Neuron: %d, max desitnation neuron: %d, Calculated Max Neuron: %d' %(edge_df.iloc[:,0].max(), edge_df.iloc[:,1].max(), Nneuron[i] * (maxLayers[j]+1)))
 
+    print('[INFO] Reordering Edges')
+    tic = time.perf_counter()
+    if args.reorder == "GO":
+        graph = algorithms.utils.edges_to_operations_graph(edge_df, Nneuron[i])
+        node_order = algorithms.GO.reorder_nodes(graph, Nneuron[i])[::-1]
+    else:
+        node_order = edge_df[::-1].itertuples(index=False)
+    reorder_time = time.perf_counter() - tic
+    print('[INFO] Time to reorder edges: %f' % reorder_time)
+
     tic = time.perf_counter()
 
     neurons = set()
     edges = []
-    for row in edge_df[::-1].itertuples():
-        activation = row[2] not in neurons
+    for row in node_order:
+        activation = row[1] not in neurons
         if activation:
-            neurons.add(row[2])
-        edges.append(spdnn.Edge(row[1], row[2], row[3], activation))
+            neurons.add(row[1])
+        edges.append(spdnn.Edge(row[0], row[1], row[2], activation))
     
     edges = edges[::-1]
     createEdgesTime = time.perf_counter() - tic
     
     print('[INFO] Created edge list. Time: %f' % createEdgesTime)
 
+    with open("edge_order.txt", "w") as fp:
+        fp.writelines(["%f %f %f\n" % (l.source, l.dest, l.weight) for l in edges])
+
     # Perform and time challenge
     tic = time.perf_counter()
-    scores = spdnn.infer_basic(featureVectors, edges, Nneuron[i] * (maxLayers[j]+1), Nneuron[i], NfeatureVectors, 5000)  
+    scores = spdnn.infer_basic(featureVectors, edges, Nneuron[i] * (maxLayers[j]+1), Nneuron[i], NfeatureVectors)  
     # scores = featureVectors
     challengeRunTime = time.perf_counter() - tic
 
     challengeRunRate = NfeatureVectors * DNNedges / challengeRunTime
-    print('[INFO] Run time (sec): %f, run rate (edges/sec): %f' %(challengeRunTime, challengeRunRate));
-
-    # Compute categories from scores.
-    scores_sum = scores.sum(axis=1)
-    categories, col = scores_sum.nonzero()
-    val = scores_sum
-
-    if SAVECAT:
-    #   StrFileWrite(sprintf('%d\n',categories),[categoryFile num2str(Nneuron(i)) '-l' num2str(maxLayers(j)) '-categories.tsv']);
-        pass
-    else:
-        categoryDiff = csr_matrix((np.ones_like(trueCategories), (trueCategories, np.zeros_like(trueCategories))), shape=(NfeatureVectors, 1)) - csr_matrix((np.ones_like(categories), (categories, np.zeros_like(categories))), shape=(NfeatureVectors, 1))
-        print("[INFO] Non-zero category difference: %d" %(categoryDiff.count_nonzero()))
-        if (categoryDiff.count_nonzero()):
-            print('[INFO] Challenge FAILED');
-        else:
-            print('[INFO] Challenge PASSED');    
+    print('[INFO] Run time (sec): %f, run rate (edges/sec): %f' %(challengeRunTime, challengeRunRate))  
 
 # %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 # % Software Engineer: Dr. Jeremy Kepner                    

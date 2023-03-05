@@ -11,6 +11,8 @@
 #define FEATPREC float
 #endif
 
+#define BATCH_SIZE 64
+
 #include <vector>
 #include <iostream>
 
@@ -19,7 +21,7 @@
 #include <pybind11/stl.h>
 #include <pybind11/iostream.h>
 
-struct Edge{
+struct Edge {
     int source;
     int dest;
     FEATPREC weight;
