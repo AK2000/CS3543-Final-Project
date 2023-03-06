@@ -86,7 +86,8 @@ def reorder_nodes(graph: nx.DiGraph, nfeatures: int, window:int = 8) -> list[int
             break
         order.append(v)
         for u in graph.successors(v):
-            queue.decrement(u)
+            if u in queue.entry_finder:
+                queue.decrement(u)
 
             for w in graph.predecessors(u):
                 if w in queue.entry_finder:
@@ -112,5 +113,5 @@ def reorder_nodes(graph: nx.DiGraph, nfeatures: int, window:int = 8) -> list[int
                     if w in queue.entry_finder:
                         queue.increment_priority(w)
 
-    order = [(v[0], v[1], graph.nodes[v][2]) for v in order[nfeatures:]]    
+    order = [(v[0], v[1], graph.nodes[v][2]) for v in order if v[0] != v[1]]    
     return order

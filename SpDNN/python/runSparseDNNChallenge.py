@@ -21,7 +21,7 @@ parser.add_argument('-o', '--output', help="File to write timing results to.")
 args = parser.parse_args()
 
 # Set locations of files.
-basePath = '/local/classes/graphs/CS3543-Final-Project/dataset/'
+basePath = '/mnt/d/UChicago/src/classes/graphs/final_project/dataset/'
 
 inputFile = basePath + 'MNIST/sparse-images-';
 categoryFile = basePath + 'DNN/neuron';
@@ -90,7 +90,7 @@ for j in range(len(maxLayers)):
     print('[INFO] Reordering Edges')
     tic = time.perf_counter()
     if args.reorder == "GO":
-        graph = algorithms.utils.edges_to_operations_graph(edge_df, Nneuron[i])
+        graph = algorithms.utils.edges_to_operations_graph(edge_df, Nneuron[i], Nneuron[i] * (maxLayers[j]+1))
         node_order = algorithms.GO.reorder_nodes(graph, Nneuron[i])[::-1]
     elif args.reorder is not None and os.path.exists(args.reorder):
         edge_df = pd.read_csv(args.reorder, sep=" ", header=None)
