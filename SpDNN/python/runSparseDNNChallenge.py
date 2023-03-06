@@ -115,8 +115,8 @@ for j in range(len(maxLayers)):
     
     print('[INFO] Created edge list. Time: %f' % createEdgesTime)
 
-    #with open("edge_order_go.txt", "w") as fp:
-    #    fp.writelines(["%f %f %f\n" % (l.source, l.dest, l.weight) for l in edges])
+    with open("edge_order_go.txt", "w") as fp:
+       fp.writelines(["%f %f %f\n" % (l.source, l.dest, l.weight) for l in edges])
 
     # Perform and time challenge
     tic = time.perf_counter()

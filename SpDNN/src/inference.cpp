@@ -35,9 +35,8 @@ Eigen::MatrixXd infer_basic(const Eigen::SparseMatrix<int> features, const std::
             }
         }
 
-        for(int k = 1; k <= num_features; k++)
-        {
-            for(int j = 0; j < BATCH_SIZE; j++){
+        for(int k = 1; k <= num_features; k++) {
+            for(int j = 0; j < BATCH_SIZE; j++) {
                 int neuron = (num_neurons - k);
                 int feature = num_features - k;
                 if(i + j >= num_images) continue;

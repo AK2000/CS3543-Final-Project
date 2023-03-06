@@ -70,24 +70,22 @@ def reorder_nodes(graph: nx.DiGraph, nfeatures: int, window:int = 8) -> list[int
     queue = PriorityQueue()
     print('[INFO] Initializing GO algorithm, adding nodes to queue')
     for node in graph.nodes():
-        if(node[0] != node[1]):
+        if(node[0] != node[1] or node[0] >= nfeatures):
             queue.add_task(node, graph.in_degree(node))
     print('[INFO] Begining GO Algorithm')
 
+    ntasks = len(queue.pq)
     order = []
     for i in range(nfeatures):
         order.append((i,i))
         for u in graph.successors((i,i)):
             queue.decrement(u)
     
-    for i in tqdm(range(1, len(queue.pq))):
+    for i in tqdm(range(ntasks)):
         v = queue.pop_task()
-        if v is None:
-            break
         order.append(v)
         for u in graph.successors(v):
-            if u in queue.entry_finder:
-                queue.decrement(u)
+            queue.decrement(u)
 
             for w in graph.predecessors(u):
                 if w in queue.entry_finder:
