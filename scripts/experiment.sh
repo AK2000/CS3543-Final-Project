@@ -8,7 +8,7 @@ for network in "radix" "random/0.1" "random/0.05" "random/0.01"; do
                         -f 1024 \
                         -i dataset/inputs/sparse-images-1024.tsv \
                         --order edge_order.txt \
-                        -g None \
+                        -g ${algo} \
                         -o results/reorder_times.txt
 
             run_cmd=python SpDNN/python/runSparseDNN.py \
