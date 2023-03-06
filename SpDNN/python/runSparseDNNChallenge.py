@@ -21,7 +21,7 @@ parser.add_argument('-o', '--output', help="File to write timing results to.")
 args = parser.parse_args()
 
 # Set locations of files.
-basePath = '/mnt/d/UChicago/src/classes/graphs/final_project/dataset/'
+basePath = '/local/classes/graphs/CS3543-Final-Project/dataset/'
 
 inputFile = basePath + 'MNIST/sparse-images-';
 categoryFile = basePath + 'DNN/neuron';
@@ -115,8 +115,8 @@ for j in range(len(maxLayers)):
     
     print('[INFO] Created edge list. Time: %f' % createEdgesTime)
 
-    with open("edge_order_go.txt", "w") as fp:
-       fp.writelines(["%f %f %f\n" % (l.source, l.dest, l.weight) for l in edges])
+    #with open("edge_order_go.txt", "w") as fp:
+    #   fp.writelines(["%f %f %f\n" % (l.source, l.dest, l.weight) for l in edges])
 
     # Perform and time challenge
     tic = time.perf_counter()

@@ -3,6 +3,7 @@ import networkx as nx
 from tqdm import tqdm
 import itertools
 from heapq import heappop, heappush
+import pdb
 
 class PriorityQueue:
     pq = []                         # list of entries arranged in a heap
@@ -80,13 +81,19 @@ def reorder_nodes(graph: nx.DiGraph, nfeatures: int, window:int = 8) -> list[int
         order.append((i,i))
         for u in graph.successors((i,i)):
             queue.decrement(u)
-    
+
+        if i >= window:
+            v_bad = order[-window-1]
+            for u in graph.successors(v_bad):
+                queue.increment_priority(u)
+
+    pdb.set_trace()
     for i in tqdm(range(ntasks)):
         v = queue.pop_task()
         order.append(v)
+
         for u in graph.successors(v):
             queue.decrement(u)
-
             for w in graph.predecessors(u):
                 if w in queue.entry_finder:
                     queue.decrement_priority(w)
@@ -96,20 +103,20 @@ def reorder_nodes(graph: nx.DiGraph, nfeatures: int, window:int = 8) -> list[int
                 if w in queue.entry_finder:
                     queue.decrement_priority(w)
 
-        if i > window:
-            v_bad = order[i-window-1]    
-            for u in graph.successors(v_bad):
-                if u in queue.entry_finder:
-                    queue.increment_priority(u)
+        v_bad = order[-window-1]    
+        for u in graph.successors(v_bad):
+            if u in queue.entry_finder:
+                queue.increment_priority(u)
 
-                for w in graph.predecessors(u):
-                    if w in queue.entry_finder:
-                        queue.increment_priority(w)
+            for w in graph.predecessors(u):
+                if w in queue.entry_finder:
+                    queue.increment_priority(w)
             
-            for u in graph.predecessors(v_bad):
-                for w in graph.successors(u):
-                    if w in queue.entry_finder:
-                        queue.increment_priority(w)
+        for u in graph.predecessors(v_bad):
+            for w in graph.successors(u):
+                if w in queue.entry_finder:
+                    queue.increment_priority(w)
+        v_bad = None
 
     order = [(v[0], v[1], graph.nodes[v][2]) for v in order if v[0] != v[1]]    
     return order
