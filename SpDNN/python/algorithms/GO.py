@@ -87,7 +87,6 @@ def reorder_nodes(graph: nx.DiGraph, nfeatures: int, window:int = 8) -> list[int
             for u in graph.successors(v_bad):
                 queue.increment_priority(u)
 
-    pdb.set_trace()
     for i in tqdm(range(ntasks)):
         v = queue.pop_task()
         order.append(v)
