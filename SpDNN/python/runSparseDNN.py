@@ -49,7 +49,7 @@ def read_network(network_directory, layers, nfeatures):
     readLayerTime = time.perf_counter() - tic
     readLayerRate = len(df.index)/readLayerTime;
 
-    print('[INFO] DNN neurons: %d, layers: %d, edges: %d' %(next_layer, layers, len(df.index)))
+    print('[INFO] DNN neurons: %d, layers: %d, edges: %d' %(next_layer, layers, len(edge_df.index)))
     print('[INFO] Read time (sec): %f, read rate (edges/sec): %f' %(readLayerTime, readLayerRate))
     return next_layer, edge_df
 
@@ -70,8 +70,7 @@ def generate_edge_order(edge_df, algo, nfeatures, nneurons, output_path):
     print('[INFO] Reordering Edges')
     tic = time.perf_counter()
     if algo == "GO":
-        graph = algorithms.utils.edges_to_operations_graph(edge_df, nfeatures, nneurons)
-        node_order = algorithms.GO.reorder_nodes(graph, nfeatures)[::-1]
+        node_order = algorithms.GO.reorder_nodes(graph)[::-1]
     elif algo == "None":
         node_order = edge_df[::-1].itertuples(index=False)
     reorderTime = time.perf_counter() - tic

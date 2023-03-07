@@ -67,55 +67,42 @@ class PriorityQueue:
                 return task
         return None
 
-def reorder_nodes(graph: nx.DiGraph, nfeatures: int, window:int = 8) -> list[int]:
+def reorder_nodes(graph: nx.DiGraph, window:int = 8) -> list[int]:
     queue = PriorityQueue()
     print('[INFO] Initializing GO algorithm, adding nodes to queue')
-    for node in graph.nodes():
-        if(node[0] != node[1] or node[0] >= nfeatures):
-            queue.add_task(node, graph.in_degree(node))
+    for (u,v) in graph.edges:
+        queue.add_task((u,v), graph.in_degree(u))
     print('[INFO] Begining GO Algorithm')
 
     ntasks = len(queue.pq)
-    order = []
-    for i in range(nfeatures):
-        order.append((i,i))
-        for u in graph.successors((i,i)):
-            queue.decrement(u)
-
-        if i >= window:
-            v_bad = order[-window-1]
-            for u in graph.successors(v_bad):
-                queue.increment_priority(u)
-
     for i in tqdm(range(ntasks)):
-        v = queue.pop_task()
+        (u,v) = queue.pop_task()
         order.append(v)
 
-        for u in graph.successors(v):
-            queue.decrement(u)
-            for w in graph.predecessors(u):
-                if w in queue.entry_finder:
-                    queue.decrement_priority(w)
-        
-        for u in graph.predecessors(v):
-            for w in graph.successors(u):
-                if w in queue.entry_finder:
-                    queue.decrement_priority(w)
-
-        v_bad = order[-window-1]    
-        for u in graph.successors(v_bad):
-            if u in queue.entry_finder:
-                queue.increment_priority(u)
-
-            for w in graph.predecessors(u):
-                if w in queue.entry_finder:
-                    queue.increment_priority(w)
+        for w in graph.successors(v):
+            queue.decrement((v,w))
             
-        for u in graph.predecessors(v_bad):
-            for w in graph.successors(u):
-                if w in queue.entry_finder:
-                    queue.increment_priority(w)
-        v_bad = None
+        for w in graph.predecessors(v):
+            if (w,v) in queue.entry_finder:
+                queue.decrement_priority((w,v))
+        
+        for w in graph.successors(u):
+            if (u,w) in queue.entry_finder:
+                queue.decrement_priority((u,w))
 
-    order = [(v[0], v[1], graph.nodes[v][2]) for v in order if v[0] != v[1]]    
+        if i > window:
+            (u_bad, v_bad) = order[-window-1] 
+            for w in graph.successors(v_bad):
+                if (v_bad, w) in queue.entry_finder:
+                    queue.increment_priority((v_bad,w))
+                
+            for w in graph.predecessors(v_bad):
+                if (w,v_bad) in queue.entry_finder:
+                    queue.decrement_priority((w,v_bad))
+            
+            for w in graph.successors(u_bad):
+                if (u_bad,w) in queue.entry_finder:
+                    queue.decrement_priority((u_bad,w))
+
+    order = [(u, v, graph.edges[u,v][2]) for (u,v) in order]    
     return order
