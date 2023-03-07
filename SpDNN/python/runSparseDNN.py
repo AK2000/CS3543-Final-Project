@@ -22,6 +22,7 @@ def parse_args():
     parser.add_argument('-g', '--generate', default=None, help="Algorithm to use to generate order of operations")
     parser.add_argument('--order', help="File to read/write edge ordering from", default=None)
     parser.add_argument('-o', '--output', help="File to write timing results to.")
+    parser.add_argument('--infer', default=False, action="store_true", help="Peform inference")
 
     args = parser.parse_args()
     return args
@@ -71,7 +72,7 @@ def generate_edge_order(edge_df, algo, nfeatures, nneurons, output_path):
     if algo == "GO":
         graph = algorithms.utils.edges_to_operations_graph(edge_df, nfeatures, nneurons)
         node_order = algorithms.GO.reorder_nodes(graph, nfeatures)[::-1]
-    elif algo == "None"
+    elif algo == "None":
         node_order = edge_df[::-1].itertuples(index=False)
     reorderTime = time.perf_counter() - tic
     reorderRate = len(edge_df.index) / reorderTime
@@ -120,7 +121,7 @@ def main():
     args = parse_args()
     nneurons, edge_df = read_network(args.network, args.layers, args.features)
 
-    if args.generate is not None:
+    if not args.infer:
         time = generate_edge_order(edge_df, args.generate, args.features, nneurons, args.order)
     else:
         feature_vecs = get_input_features(args.inputs, args.features)

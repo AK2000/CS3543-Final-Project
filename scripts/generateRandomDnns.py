@@ -1,5 +1,6 @@
 import os
 import pandas as pd
+import numpy as np
 import scipy.sparse
 import tqdm
 
@@ -15,8 +16,8 @@ for sparsity in [0.9, 0.5, 0.1, 0.05, 0.01]:
         weights = weights / np.sqrt(nfeatures)
 
         df = pd.DataFrame({
-                0: weights.row,
-                1: weights.col,
+                0: weights.row + 1,
+                1: weights.col + 1,
                 2: weights.data
             })
         
