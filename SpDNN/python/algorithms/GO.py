@@ -74,10 +74,11 @@ def reorder_nodes(graph: nx.DiGraph, window:int = 8) -> list[int]:
         queue.add_task((u,v), graph.in_degree(u))
     print('[INFO] Begining GO Algorithm')
 
+    order = []
     ntasks = len(queue.pq)
     for i in tqdm(range(ntasks)):
         (u,v) = queue.pop_task()
-        order.append(v)
+        order.append((u,v))
 
         for w in graph.successors(v):
             queue.decrement((v,w))

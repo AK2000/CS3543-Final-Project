@@ -4,6 +4,7 @@ import argparse
 import csv
 import numpy as np
 import pandas as pd
+import networkx as nx
 from scipy.sparse import csr_matrix
 
 import sys
@@ -70,6 +71,7 @@ def generate_edge_order(edge_df, algo, nfeatures, nneurons, output_path):
     print('[INFO] Reordering Edges')
     tic = time.perf_counter()
     if algo == "GO":
+        graph = nx.from_pandas_edgelist(edge_df, 0, 1, 2, create_using=nx.DiGraph)
         node_order = algorithms.GO.reorder_nodes(graph)[::-1]
     elif algo == "None":
         node_order = edge_df[::-1].itertuples(index=False)
