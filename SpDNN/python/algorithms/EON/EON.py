@@ -17,6 +17,9 @@ class PPO:
         self.actor_critic = network.EdgeOrderingNetwork(graph)
         self.actor_critic_optim = Adam(self.actor_critic.parameters(), lr=self.lr)
 
+        self.best_order = None
+        self.best_reward = -float('inf')
+
         self.logger = {
             'delta_t': time.time_ns(),
             't_so_far': 0,          # timesteps so far
@@ -27,14 +30,16 @@ class PPO:
         }
 
         self.training_log_path = training_log_path
+        self.alpha = 0.1
 
     def _init_hyperparameters(self, graph):
-        self.timesteps_per_batch = 4800
         self.max_timesteps_per_episode = graph.number_of_edges()
-        self.n_updates_per_iteration = 5
+        self.timesteps_per_batch = self.max_timesteps_per_episode * 5
+        self.n_updates_per_iteration = 50
         self.gamma = 0.95
         self.clip = 0.2
-        self.lr = 0.005
+        self.lr = 0.0005
+        self.alpha_decay = 0.002
 
         self.save_freq = 10
 
@@ -58,13 +63,16 @@ class PPO:
         dist = dist.squeeze(0)
 
         idx = torch.argmin(frontier[:, 0])
-        if frontier[idx, 0] < 0:
-            index = dist[:idx].multinomial(num_samples=1)
+        if frontier[idx, 0] >= 0:
+            idx = frontier.shape(0)
+        
+        if np.random.rand() < self.alpha:
+            index = np.random.randint(0, idx)
         else:
-            index = dist.multinomial(num_samples=1)
+            index = torch.argmax(dist[:idx])
 
-        action = frontier[index].detach().tolist()[0]
-        return action, index, dist[index]
+        action = frontier[index].detach().tolist()
+        return action, index, torch.log(dist[index])
 
     def evaluate(self, batch_obs, batch_acts):
         cache = torch.LongTensor([o["cache"] for o in batch_obs])
@@ -90,6 +98,7 @@ class PPO:
             ep_rews = []
             obs = self.env.reset()
             done = False
+            order = []
             for ep_t in range(self.max_timesteps_per_episode):
                 # Increment timesteps ran this batch so far
                 t += 1
@@ -98,6 +107,7 @@ class PPO:
                 cache = torch.LongTensor(obs["cache"])
                 frontier = torch.LongTensor(obs["frontier"])
                 action, action_idx, log_prob = self.get_action(cache, frontier)
+                order.append(tuple(action))
                 obs, rew, done = self.env.step(action)
             
                 # Collect reward, action, and log prob
@@ -110,7 +120,11 @@ class PPO:
             
             # Collect episodic length and rewards
             batch_lens.append(ep_t + 1) # plus 1 because timestep starts at 0
-            batch_rews.append(ep_rews)       
+            batch_rews.append(ep_rews)
+
+            if np.sum(ep_rews) > self.best_reward:
+                self.best_order = order
+                self.best_reward = sum(ep_rews)   
         
         batch_acts = torch.LongTensor(batch_acts)
         batch_log_probs = torch.tensor(batch_log_probs, dtype=torch.float)
@@ -141,24 +155,29 @@ class PPO:
             # Calculate advantage
             A_k = batch_rtgs - V.detach()
             A_k = (A_k - A_k.mean()) / (A_k.std() + 1e-10)
+            old_probs = batch_log_probs
 
             for _ in range(self.n_updates_per_iteration):
                 V, curr_log_probs = self.evaluate(batch_obs, batch_acts)
+                
                 ratios = torch.exp(curr_log_probs - batch_log_probs)
                 surr1 = ratios * A_k
                 surr2 = torch.clamp(ratios, 1 - self.clip, 1 + self.clip) * A_k
 
-                actor_loss = - torch.min(surr1, surr2).mean()
+                actor_loss = (-torch.min(surr1, surr2)).mean()
                 critic_loss = nn.MSELoss()(V.squeeze(), batch_rtgs)
-                loss = actor_loss + critic_loss
+                loss = actor_loss  + 0.5 * critic_loss
 
                 self.actor_critic_optim.zero_grad()
                 loss.backward()
                 self.actor_critic_optim.step()
 
                 self.logger['actor_losses'].append(actor_loss.detach())
+                old_probs = curr_log_probs
 
             self._log_summary()
+
+            self.alpha = max(0, self.alpha - self.alpha_decay)
 
             if i_so_far % self.save_freq == 0:
                 torch.save(self.actor_critic.state_dict(), "./ppo_actor_critic.pth")
@@ -173,7 +192,8 @@ class PPO:
         i_so_far = self.logger['i_so_far']
         avg_ep_lens = np.mean(self.logger['batch_lens'])
         avg_ep_rews = np.mean([np.sum(ep_rews) for ep_rews in self.logger['batch_rews']])
-        avg_actor_loss = np.mean([losses.float().mean() for losses in self.logger['actor_losses']])
+        actor_losses = [losses.float().mean().item() for losses in self.logger['actor_losses']]
+        avg_actor_loss = np.mean(actor_losses)
 
         # Round decimal places for more aesthetic logging messages
         avg_ep_lens = str(round(avg_ep_lens, 2))
@@ -199,33 +219,18 @@ class PPO:
         entry = {
             "iteration": i_so_far,
             "avg_ep_rews": avg_ep_rews,
-            "average_eps_loss": avg_actor_loss
+            "average_eps_loss": avg_actor_loss,
+            "losses": actor_losses,
+            "best_reward": self.best_reward
         }
 
         with open(self.training_log_path, "a") as fp:
             fp.write(json.dumps(entry) + "\n")
 
     def generate_order(self):
-        order = []
-        obs = self.env.reset()
-        for ep_t in range(self.max_timesteps_per_episode):
-            cache = torch.LongTensor(obs["cache"])
-            frontier = torch.LongTensor(obs["frontier"])
+        return self.best_order
 
-            dist, _ = self.actor_critic(frontier, cache)
-            dist = dist.squeeze(0)
-            index = torch.argmax(dist)
-            action = frontier[index].detach().tolist()
-            order.append(tuple(action))
-
-            obs, _, done = self.env.step(action)
-
-            if done:
-                break
-
-        return order
-
-def reorder_edges(graph: nx.DiGraph, n:int = 100000, training_log_path:str = "training.log") -> list[tuple]:
+def reorder_edges(graph: nx.DiGraph, n:int = 1000, training_log_path:str = "training.log") -> list[tuple]:
     model = PPO(graph, training_log_path=training_log_path)
     model.learn(n)
     order = model.generate_order()
