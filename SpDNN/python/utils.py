@@ -1,6 +1,7 @@
 import os
 import time
 
+import numpy as np
 import scipy.sparse
 from scipy.sparse import csr_matrix
 import pandas as pd
@@ -46,6 +47,24 @@ def read_network(network_directory, layers, nfeatures):
     print('[INFO] DNN neurons: %d, layers: %d, edges: %d' %(next_layer, layers, len(edge_df.index)))
     print('[INFO] Read time (sec): %f, read rate (edges/sec): %f' %(readLayerTime, readLayerRate))
     return next_layer, edge_df
+
+def read_network_baseline(network_directory, nlayers, nfeatures):
+    tic = time.perf_counter()
+
+    layers = []
+    DNNedges = 0
+    for k in range(nlayers):
+        filename = f"{network_directory}/n{nfeatures}-l{k+1}.tsv"
+        df = readTriples(filename)
+        layers.append(csr_matrix((df[2].values, (df[0].values, df[1].values))))
+        DNNedges = DNNedges + layers[k].count_nonzero()
+
+    readLayerTime = time.perf_counter() - tic
+    readLayerRate = DNNedges/readLayerTime;
+
+    print('[INFO] DNN neurons/layer: %d, layers: %d, edges: %d' %(nfeatures, nlayers, DNNedges))
+    print('[INFO] Read time (sec): %f, read rate (edges/sec): %f' %(readLayerTime, readLayerRate))
+    return DNNedges, layers
 
 def get_input_features(inputs, nfeatures):
     if os.path.exists(inputs):
