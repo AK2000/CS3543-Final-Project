@@ -34,8 +34,8 @@ class PPO:
 
     def _init_hyperparameters(self, graph):
         self.max_timesteps_per_episode = graph.number_of_edges()
-        self.timesteps_per_batch = self.max_timesteps_per_episode * 5
-        self.n_updates_per_iteration = 50
+        self.timesteps_per_batch = self.max_timesteps_per_episode * 8
+        self.n_updates_per_iteration = 25
         self.gamma = 0.95
         self.clip = 0.2
         self.lr = 0.0005
@@ -230,7 +230,7 @@ class PPO:
     def generate_order(self):
         return self.best_order
 
-def reorder_edges(graph: nx.DiGraph, n:int = 1000, training_log_path:str = "training.log") -> list[tuple]:
+def reorder_edges(graph: nx.DiGraph, n:int = 5000, training_log_path:str = "training.log") -> list[tuple]:
     model = PPO(graph, training_log_path=training_log_path)
     model.learn(n)
     order = model.generate_order()
