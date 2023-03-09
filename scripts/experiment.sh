@@ -38,7 +38,6 @@ for network in "random-w16/0.05"; do
                 else
                     echo "Command failed"
                 fi
-                exit 1
             done
         done
     done

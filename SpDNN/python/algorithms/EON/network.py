@@ -41,7 +41,7 @@ class EdgeOrderingNetwork(nn.Module):
         frontier_embds = self.hidden_layer1(frontier_embds)
 
         logits = torch.bmm(frontier_embds, cache_embds.unsqueeze(-1)).squeeze(-1)
-        logits = nn.functional.softmax(torch.abs(logits) *  mask)
+        logits = nn.functional.softmax(torch.abs(logits) *  mask, dim=-1)
 
         frontier_embds = torch.sum(frontier_embds, dim=-2) /  torch.sum(mask, dim=-1).unsqueeze(-1)
         cache_embds = self.hidden_layer2(cache_embds)

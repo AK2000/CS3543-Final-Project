@@ -149,7 +149,7 @@ class PPO:
                 surr2 = torch.clamp(ratios, 1 - self.clip, 1 + self.clip) * A_k
 
                 actor_loss = - torch.min(surr1, surr2).mean()
-                critic_loss = nn.MSELoss()(V, batch_rtgs.squeeze())
+                critic_loss = nn.MSELoss()(V.squeeze(), batch_rtgs)
                 loss = actor_loss + critic_loss
 
                 self.actor_critic_optim.zero_grad()
@@ -225,7 +225,7 @@ class PPO:
 
         return order
 
-def reorder_edges(graph: nx.DiGraph, n:int = 1000, training_log_path:str = "training.log") -> list[tuple]:
+def reorder_edges(graph: nx.DiGraph, n:int = 100000, training_log_path:str = "training.log") -> list[tuple]:
     model = PPO(graph, training_log_path=training_log_path)
     model.learn(n)
     order = model.generate_order()

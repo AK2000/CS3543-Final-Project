@@ -4,9 +4,9 @@ import numpy as np
 import scipy.sparse
 import tqdm
 
-name_base = "dataset/networks/random-w16/{}"
+name_base = "dataset/networks/random-w64/{}"
 max_layers = 16
-nfeatures = 16
+nfeatures = 64
 for sparsity in [0.05]:
     folder = name_base.format(sparsity)
     os.makedirs(folder, exist_ok=True)
