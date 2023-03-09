@@ -67,7 +67,7 @@ class PriorityQueue:
                 return task
         return None
 
-def reorder_nodes(graph: nx.DiGraph, window:int = 8) -> list[int]:
+def reorder_nodes(graph: nx.DiGraph, window:int = 8) -> list[tuple]:
     queue = PriorityQueue()
     print('[INFO] Initializing GO algorithm, adding nodes to queue')
     for (u,v) in graph.edges:
