@@ -1,0 +1,48 @@
+3022263773431,,L1-dcache-loads:u,1160007469747,100.00,,,,16,scipy,1024
+265021026621,,L1-dcache-load-misses:u,1160007469747,100.00,8.77,of all L1-dcache accesses,,16,scipy,1024
+4177939344,,L1-dcache-loads:u,3319123563,100.00,,,,16,pytorch,1024
+150341988,,L1-dcache-load-misses:u,3319123563,100.00,3.60,of all L1-dcache accesses,,16,pytorch,1024
+206888440963,,L1-dcache-loads:u,117413533794,100.00,,,,16,ours,1024
+77377519092,,L1-dcache-load-misses:u,117413533794,100.00,37.40,of all L1-dcache accesses,,16,ours,1024
+858810618991,,L1-dcache-loads:u,343516284175,100.00,,,,16,scipy,1024
+68166176887,,L1-dcache-load-misses:u,343516284175,100.00,7.94,of all L1-dcache accesses,,16,scipy,1024
+93693508388,,L1-dcache-loads:u,131206494104,100.00,,,,16,pytorch,1024
+4792491516,,L1-dcache-load-misses:u,131206494104,100.00,5.12,of all L1-dcache accesses,,16,pytorch,1024
+45197804788,,L1-dcache-loads:u,23079775889,100.00,,,,16,ours,1024
+13893458584,,L1-dcache-load-misses:u,23079775889,100.00,30.74,of all L1-dcache accesses,,16,ours,1024
+366230097125,,L1-dcache-loads:u,143316978622,100.00,,,,16,scipy,1024
+27750409145,,L1-dcache-load-misses:u,143316978622,100.00,7.58,of all L1-dcache accesses,,16,scipy,1024
+63211159129,,L1-dcache-loads:u,120855485825,100.00,,,,16,pytorch,1024
+3331974251,,L1-dcache-load-misses:u,120855485825,100.00,5.27,of all L1-dcache accesses,,16,pytorch,1024
+24940004378,,L1-dcache-loads:u,16769116638,100.00,,,,16,ours,1024
+8340813766,,L1-dcache-load-misses:u,16769116638,100.00,33.44,of all L1-dcache accesses,,16,ours,1024
+137179032954,,L1-dcache-loads:u,58835263336,100.00,,,,16,scipy,1024
+8439216356,,L1-dcache-load-misses:u,58835263336,100.00,6.15,of all L1-dcache accesses,,16,scipy,1024
+39561224250,,L1-dcache-loads:u,101304590855,100.00,,,,16,pytorch,1024
+1785009116,,L1-dcache-load-misses:u,101304590855,100.00,4.51,of all L1-dcache accesses,,16,pytorch,1024
+8775491665,,L1-dcache-loads:u,6482380265,100.00,,,,16,ours,1024
+1795937013,,L1-dcache-load-misses:u,6482380265,100.00,20.47,of all L1-dcache accesses,,16,ours,1024
+23245863282,,L1-dcache-loads:u,11856671097,100.00,,,,2,scipy,1024
+1621508643,,L1-dcache-load-misses:u,11856671097,100.00,6.98,of all L1-dcache accesses,,2,scipy,1024
+10138407357,,L1-dcache-loads:u,16930167760,100.00,,,,2,pytorch,1024
+447142975,,L1-dcache-load-misses:u,16930167760,100.00,4.41,of all L1-dcache accesses,,2,pytorch,1024
+6274684412,,L1-dcache-loads:u,4650867164,100.00,,,,2,ours,1024
+502473223,,L1-dcache-load-misses:u,4650867164,100.00,8.01,of all L1-dcache accesses,,2,ours,1024
+59251522204,,L1-dcache-loads:u,25920809793,100.00,,,,4,scipy,1024
+4024409207,,L1-dcache-load-misses:u,25920809793,100.00,6.79,of all L1-dcache accesses,,4,scipy,1024
+16659762079,,L1-dcache-loads:u,30722242543,100.00,,,,4,pytorch,1024
+766666473,,L1-dcache-load-misses:u,30722242543,100.00,4.60,of all L1-dcache accesses,,4,pytorch,1024
+7850974459,,L1-dcache-loads:u,5268076117,100.00,,,,4,ours,1024
+889679385,,L1-dcache-load-misses:u,5268076117,100.00,11.33,of all L1-dcache accesses,,4,ours,1024
+136706670513,,L1-dcache-loads:u,56473527273,100.00,,,,8,scipy,1024
+9801666421,,L1-dcache-load-misses:u,56473527273,100.00,7.17,of all L1-dcache accesses,,8,scipy,1024
+29364387626,,L1-dcache-loads:u,58730932675,100.00,,,,8,pytorch,1024
+1401794633,,L1-dcache-load-misses:u,58730932675,100.00,4.77,of all L1-dcache accesses,,8,pytorch,1024
+11002059910,,L1-dcache-loads:u,6136889418,100.00,,,,8,ours,1024
+1424230866,,L1-dcache-load-misses:u,6136889418,100.00,12.95,of all L1-dcache accesses,,8,ours,1024
+2040530824379,,L1-dcache-loads:u,922673043514,100.00,,,,120,scipy,1024
+235955879216,,L1-dcache-load-misses:u,922673043514,100.00,11.56,of all L1-dcache accesses,,120,scipy,1024
+61679086932,,L1-dcache-loads:u,131938932956,100.00,,,,120,pytorch,1024
+3072951939,,L1-dcache-load-misses:u,131938932956,100.00,4.98,of all L1-dcache accesses,,120,pytorch,1024
+99309848307,,L1-dcache-loads:u,48255011624,100.00,,,,120,ours,1024
+17955171607,,L1-dcache-load-misses:u,48255011624,100.00,18.08,of all L1-dcache accesses,,120,ours,1024
