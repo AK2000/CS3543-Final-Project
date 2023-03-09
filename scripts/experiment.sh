@@ -32,7 +32,7 @@ for network in "random-w16/0.05"; do
                     exp=",${network},${layer},${algo},${features}"
                     sed '/#.*$/d' results/temp.csv > results/temp_2.csv
                     sed '/^\s*$/d' results/temp_2.csv > results/temp.csv
-                        sed "s|\$|${exp}|" results/temp.csv >> results/cache_results.csv
+                    sed "s|\$|${exp}|" results/temp.csv >> results/cache_results.csv
                     rm results/temp_2.csv
                     rm results/temp.csv
                 else

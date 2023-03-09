@@ -9,7 +9,7 @@ from scipy.sparse import csr_matrix
 import torch
 
 import sys
-sys.path.insert(0,'../src')
+sys.path.insert(0,'./SpDNN/src')
 import spdnn
 from algorithms import GO
 from  algorithms.EON import EON
@@ -87,7 +87,7 @@ def main():
     if args.output is not None:
         with open(args.output, 'a') as fp:
             writer = csv.writer(fp, delimiter=',')
-            writer.writerow([args.network, args.layers, args.algo, time])
+            writer.writerow([args.network, args.layers, args.algo, challengeRunRate])
 
 if __name__ == "__main__":
     main()

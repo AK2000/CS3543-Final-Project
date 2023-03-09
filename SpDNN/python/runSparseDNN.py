@@ -41,6 +41,8 @@ def generate_edge_order(edge_df, algo, nfeatures, nneurons, output_path):
         node_order = EON.reorder_edges(graph, training_log_path=training_log)[::-1]
     elif algo == "None":
         node_order = edge_df[::-1].itertuples(index=False)
+    else:
+        print("Agorithm not recognized, Quitting!")
     reorderTime = time.perf_counter() - tic
     reorderRate = len(edge_df.index) / reorderTime
     print('[INFO] Run time: %f, Run rate: %f' % (reorderTime, reorderRate))
