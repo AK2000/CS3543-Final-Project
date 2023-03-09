@@ -1,0 +1,68 @@
+4357280969,,L1-dcache-loads:u,0.00%,3878836715,100.00,,,random/0.01,2,GO
+257975651,,L1-dcache-load-misses:u,0.55%,3878836715,100.00,5.92,of all L1-dcache accesses,random/0.01,2,GO
+4357696561,,L1-dcache-loads:u,0.00%,3796769325,100.00,,,random/0.01,2,None
+349008210,,L1-dcache-load-misses:u,0.92%,3796769325,100.00,8.01,of all L1-dcache accesses,random/0.01,2,None
+4882523121,,L1-dcache-loads:u,0.00%,3991965107,100.00,,,random/0.01,4,GO
+381780105,,L1-dcache-load-misses:u,0.91%,3991965107,100.00,7.82,of all L1-dcache accesses,random/0.01,4,GO
+4881589986,,L1-dcache-loads:u,0.00%,4083534906,100.00,,,random/0.01,4,None
+507590350,,L1-dcache-load-misses:u,1.13%,4083534906,100.00,10.40,of all L1-dcache accesses,random/0.01,4,None
+5931153948,,L1-dcache-loads:u,0.01%,4438577475,100.00,,,random/0.01,8,GO
+618270899,,L1-dcache-load-misses:u,1.16%,4438577475,100.00,10.42,of all L1-dcache accesses,random/0.01,8,GO
+5930541985,,L1-dcache-loads:u,0.00%,4657453487,100.00,,,random/0.01,8,None
+1004067582,,L1-dcache-load-misses:u,1.52%,4657453487,100.00,16.93,of all L1-dcache accesses,random/0.01,8,None
+8033756347,,L1-dcache-loads:u,0.01%,5435160212,100.00,,,random/0.01,16,GO
+1160636871,,L1-dcache-load-misses:u,1.22%,5435160212,100.00,14.44,of all L1-dcache accesses,random/0.01,16,GO
+8033206604,,L1-dcache-loads:u,0.00%,5758672485,100.00,,,random/0.01,16,None
+1753427833,,L1-dcache-load-misses:u,1.14%,5758672485,100.00,21.82,of all L1-dcache accesses,random/0.01,16,None
+6438944999,,L1-dcache-loads:u,0.00%,4582308825,100.00,,,random/0.05,2,GO
+652331361,,L1-dcache-load-misses:u,0.13%,4582308825,100.00,10.13,of all L1-dcache accesses,random/0.05,2,GO
+6440126198,,L1-dcache-loads:u,0.00%,4781666803,100.00,,,random/0.05,2,None
+1119916269,,L1-dcache-load-misses:u,1.52%,4781666803,100.00,17.39,of all L1-dcache accesses,random/0.05,2,None
+9043540535,,L1-dcache-loads:u,0.01%,5531177922,100.00,,,random/0.05,4,GO
+1162779064,,L1-dcache-load-misses:u,0.87%,5531177922,100.00,12.85,of all L1-dcache accesses,random/0.05,4,GO
+9051218229,,L1-dcache-loads:u,0.01%,6089004668,100.00,,,random/0.05,4,None
+2089093720,,L1-dcache-load-misses:u,0.79%,6089004668,100.00,23.09,of all L1-dcache accesses,random/0.05,4,None
+14249937357,,L1-dcache-loads:u,0.01%,7141095925,100.00,,,random/0.05,8,GO
+2200684043,,L1-dcache-load-misses:u,1.39%,7141095925,100.00,15.44,of all L1-dcache accesses,random/0.05,8,GO
+14257371864,,L1-dcache-loads:u,0.01%,9159977725,100.00,,,random/0.05,8,None
+4260905830,,L1-dcache-load-misses:u,1.68%,9159977725,100.00,29.89,of all L1-dcache accesses,random/0.05,8,None
+24705759989,,L1-dcache-loads:u,0.01%,12021142289,100.00,,,random/0.05,16,GO
+4537638872,,L1-dcache-load-misses:u,1.08%,12021142289,100.00,18.37,of all L1-dcache accesses,random/0.05,16,GO
+24696435793,,L1-dcache-loads:u,0.01%,15038306818,100.00,,,random/0.05,16,None
+8380733000,,L1-dcache-load-misses:u,1.98%,15038306818,100.00,33.93,of all L1-dcache accesses,random/0.05,16,None
+9045563768,,L1-dcache-loads:u,0.01%,5221893266,100.00,,,random/0.1,2,GO
+1112743545,,L1-dcache-load-misses:u,1.23%,5221893266,100.00,12.30,of all L1-dcache accesses,random/0.1,2,GO
+9047886645,,L1-dcache-loads:u,0.01%,6152931197,100.00,,,random/0.1,2,None
+2077732576,,L1-dcache-load-misses:u,2.29%,6152931197,100.00,22.97,of all L1-dcache accesses,random/0.1,2,None
+14249120856,,L1-dcache-loads:u,0.01%,7194768924,100.00,,,random/0.1,4,GO
+2036323453,,L1-dcache-load-misses:u,0.84%,7194768924,100.00,14.29,of all L1-dcache accesses,random/0.1,4,GO
+14256077929,,L1-dcache-loads:u,0.00%,9016279137,100.00,,,random/0.1,4,None
+4292430182,,L1-dcache-load-misses:u,1.68%,9016279137,100.00,30.12,of all L1-dcache accesses,random/0.1,4,None
+24685901617,,L1-dcache-loads:u,0.01%,13147635603,100.00,,,random/0.1,8,None
+6995442228,,L1-dcache-load-misses:u,2.42%,13147635603,100.00,28.36,of all L1-dcache accesses,random/0.1,8,None
+45546192082,,L1-dcache-loads:u,0.01%,26952063859,100.00,,,random/0.1,16,None
+16548285307,,L1-dcache-load-misses:u,2.45%,26952063859,100.00,36.33,of all L1-dcache accesses,random/0.1,16,None
+29866058910,,L1-dcache-loads:u,0.01%,16447016202,100.00,,,random/0.5,2,None
+9808670776,,L1-dcache-load-misses:u,2.15%,16447016202,100.00,32.84,of all L1-dcache accesses,random/0.5,2,None
+55876946262,,L1-dcache-loads:u,0.01%,30459272944,100.00,,,random/0.5,4,None
+19447690622,,L1-dcache-load-misses:u,2.20%,30459272944,100.00,34.80,of all L1-dcache accesses,random/0.5,4,None
+107871960273,,L1-dcache-loads:u,0.01%,61836437495,100.00,,,random/0.5,8,None
+38767300128,,L1-dcache-load-misses:u,1.89%,61836437495,100.00,35.93,of all L1-dcache accesses,random/0.5,8,None
+212144153682,,L1-dcache-loads:u,0.01%,120770932932,100.00,,,random/0.5,16,None
+77272203161,,L1-dcache-load-misses:u,1.64%,120770932932,100.00,36.42,of all L1-dcache accesses,random/0.5,16,None
+5457625865,,L1-dcache-loads:u,0.01%,4108120714,100.00,,,radix,2,GO
+459345953,,L1-dcache-load-misses:u,0.89%,4108120714,100.00,8.42,of all L1-dcache accesses,radix,2,GO
+5455813082,,L1-dcache-loads:u,0.00%,4116919433,100.00,,,radix,2,None
+459927619,,L1-dcache-load-misses:u,0.23%,4116919433,100.00,8.43,of all L1-dcache accesses,radix,2,None
+7081220443,,L1-dcache-loads:u,0.00%,4580514343,100.00,,,radix,4,GO
+772579151,,L1-dcache-load-misses:u,1.39%,4580514343,100.00,10.91,of all L1-dcache accesses,radix,4,GO
+7079682922,,L1-dcache-loads:u,0.00%,4582487910,100.00,,,radix,4,None
+762569457,,L1-dcache-load-misses:u,1.34%,4582487910,100.00,10.77,of all L1-dcache accesses,radix,4,None
+10329278937,,L1-dcache-loads:u,0.01%,5645002396,100.00,,,radix,8,GO
+1271980987,,L1-dcache-load-misses:u,1.37%,5645002396,100.00,12.32,of all L1-dcache accesses,radix,8,GO
+10327685252,,L1-dcache-loads:u,0.01%,5886573538,100.00,,,radix,8,None
+1347610489,,L1-dcache-load-misses:u,0.69%,5886573538,100.00,13.05,of all L1-dcache accesses,radix,8,None
+16827434125,,L1-dcache-loads:u,0.00%,7623361078,100.00,,,radix,16,GO
+1654804288,,L1-dcache-load-misses:u,2.21%,7623361078,100.00,9.83,of all L1-dcache accesses,radix,16,GO
+16841761315,,L1-dcache-loads:u,0.01%,8386968585,100.00,,,radix,16,None
+2553651340,,L1-dcache-load-misses:u,1.51%,8386968585,100.00,15.17,of all L1-dcache accesses,radix,16,None
