@@ -10,6 +10,8 @@ from torch.optim import Adam
 from . import network
 from . import environment
 
+# Adapted from: https://github.com/ericyangyu/PPO-for-Beginners
+
 class PPO:
     def __init__(self, graph, training_log_path="training.log"):
         self._init_hyperparameters(graph)

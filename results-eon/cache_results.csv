@@ -1,0 +1,24 @@
+1306666957,,L1-dcache-loads:u,0.02%,2373888632,100.00,,,random-w16/0.05,2,EON,16
+70991701,,L1-dcache-load-misses:u,1.27%,2373888632,100.00,5.43,of all L1-dcache accesses,random-w16/0.05,2,EON,16
+1306715769,,L1-dcache-loads:u,0.01%,2364265611,100.00,,,random-w16/0.05,2,GO,16
+71118125,,L1-dcache-load-misses:u,0.81%,2364265611,100.00,5.44,of all L1-dcache accesses,random-w16/0.05,2,GO,16
+1307058557,,L1-dcache-loads:u,0.01%,2396187639,100.00,,,random-w16/0.05,2,None,16
+73244841,,L1-dcache-load-misses:u,0.25%,2396187639,100.00,5.60,of all L1-dcache accesses,random-w16/0.05,2,None,16
+1310434112,,L1-dcache-loads:u,0.01%,2389272434,100.00,,,random-w16/0.05,4,EON,16
+72744350,,L1-dcache-load-misses:u,0.83%,2389272434,100.00,5.55,of all L1-dcache accesses,random-w16/0.05,4,EON,16
+1310221511,,L1-dcache-loads:u,0.01%,2377844045,100.00,,,random-w16/0.05,4,GO,16
+74258547,,L1-dcache-load-misses:u,1.00%,2377844045,100.00,5.66,of all L1-dcache accesses,random-w16/0.05,4,GO,16
+1310488329,,L1-dcache-loads:u,0.01%,2407785663,100.00,,,random-w16/0.05,4,None,16
+70903782,,L1-dcache-load-misses:u,1.06%,2407785663,100.00,5.41,of all L1-dcache accesses,random-w16/0.05,4,None,16
+1319823849,,L1-dcache-loads:u,0.02%,2385196850,100.00,,,random-w16/0.05,8,EON,16
+74330674,,L1-dcache-load-misses:u,0.77%,2385196850,100.00,5.63,of all L1-dcache accesses,random-w16/0.05,8,EON,16
+1319668599,,L1-dcache-loads:u,0.01%,2399460935,100.00,,,random-w16/0.05,8,GO,16
+72208444,,L1-dcache-load-misses:u,0.64%,2399460935,100.00,5.47,of all L1-dcache accesses,random-w16/0.05,8,GO,16
+1319698666,,L1-dcache-loads:u,0.01%,2423178742,100.00,,,random-w16/0.05,8,None,16
+71841184,,L1-dcache-load-misses:u,0.83%,2423178742,100.00,5.44,of all L1-dcache accesses,random-w16/0.05,8,None,16
+1336945802,,L1-dcache-loads:u,0.01%,2451252617,100.00,,,random-w16/0.05,16,EON,16
+70257214,,L1-dcache-load-misses:u,1.07%,2451252617,100.00,5.25,of all L1-dcache accesses,random-w16/0.05,16,EON,16
+1337185646,,L1-dcache-loads:u,0.01%,2452246382,100.00,,,random-w16/0.05,16,GO,16
+70719815,,L1-dcache-load-misses:u,0.66%,2452246382,100.00,5.29,of all L1-dcache accesses,random-w16/0.05,16,GO,16
+1336393867,,L1-dcache-loads:u,0.01%,2445349754,100.00,,,random-w16/0.05,16,None,16
+70789468,,L1-dcache-load-misses:u,1.28%,2445349754,100.00,5.29,of all L1-dcache accesses,random-w16/0.05,16,None,16

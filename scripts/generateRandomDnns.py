@@ -7,7 +7,7 @@ import tqdm
 name_base = "dataset/networks/random/{}"
 max_layers = 16
 nfeatures = 1024
-for sparsity in [0.05]:
+for sparsity in [0.01, 0.05, 0.1, 0.5]:
     folder = name_base.format(sparsity)
     os.makedirs(folder, exist_ok=True)
     print("Generating network: ", folder)

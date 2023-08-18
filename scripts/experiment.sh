@@ -1,8 +1,8 @@
 #!/bin/bash
-for network in "random-w16/0.05"; do
+for network in "radix" "random/0.01" "random/0.05" "random/0.1"; do
     for layer in "2" "4" "8" "16"; do
-        for features in "16"; do
-            for algo in "EON" "GO" "None"; do
+        for features in "1024"; do
+            for algo in "GO" "None"; do
                 if python SpDNN/python/runSparseDNN.py \
                             -n dataset/networks/${network} \
                             -l ${layer} \

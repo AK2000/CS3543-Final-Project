@@ -1,0 +1,12 @@
+dataset/networks/random-w16/0.05,2,EON,0.5688833122662418
+dataset/networks/random-w16/0.05,2,GO,17615.542193701454
+dataset/networks/random-w16/0.05,2,None,102509.70273704
+dataset/networks/random-w16/0.05,4,EON,0.9652067593838081
+dataset/networks/random-w16/0.05,4,GO,5220.2677935961365
+dataset/networks/random-w16/0.05,4,None,207141.49186044786
+dataset/networks/random-w16/0.05,8,EON,1.6347693919496595
+dataset/networks/random-w16/0.05,8,GO,45221.56984309409
+dataset/networks/random-w16/0.05,8,None,387167.4179720275
+dataset/networks/random-w16/0.05,16,EON,2.5982030359469426
+dataset/networks/random-w16/0.05,16,GO,75998.44401477922
+dataset/networks/random-w16/0.05,16,None,814294.9312798973
